@@ -1,0 +1,45 @@
+Loop I(1): 0 -> M;
+Loop J(1): 0 -> N;
+Loop K(1): 0 -> L;
+
+Nest(I, J, K);
+
+C[I][J] += A[I][K] * B[K][J]; 
+
+// Loop I1(T1) : 0 -> M;
+// Loop J1(T2) : 0 -> N;
+// Loop K1(T3) : 0 -> L;
+// 
+// Loop I2(1) : I1 -> I1 + T1;
+// Loop J2(1) : J1 -> J1 + T2;
+// Loop K2(1) : K1 -> K1 + T3;
+// 
+// Nest(I1, J1, K1, I2, J2, K2);
+// 
+// C[I2][J2] += A[I2][K2] * B[K2][J2];
+
+// Boogie 
+// calculate size, if seq then add, if nest then mul
+// I = M - 0
+// J = N - 0
+// K = L - 0
+// I1 = M / T1
+// J1 = N / T2
+// K1 = L / T3
+// I2 = I1 * (I1 + T1 - I1)
+// J2 = J1 * (J1 + T2 - J1)
+// K2 = K1 * (K1 + T3 - K1)
+// assert(I2 == I);
+// assert(J2 == J)
+// calculate unique loops and check size
+// assert(I * J * K == I2 * J2 * K2)
+// for unique loops check sizes of loop 
+// assert(I == I2 || I == J2 || I == K2)
+// assert(J == I2 || J == J2 || J == K2)
+// assert(K == I2 || K == J2 || K == K2)
+// check(0<I1<M, 1<=T1<=M/2, same for others as well)
+// loops should be equal
+// 
+
+// DSL checks
+// Expression is same
