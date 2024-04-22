@@ -1,0 +1,7 @@
+Loop I(1): 0 -> N * 2;
+Loop J(1): 0 -> N * 2;
+Loop K(1): 0 -> N * 2;
+
+Nest(I, J, K);
+
+C[I][J] += A[I][K] * B[K][J];

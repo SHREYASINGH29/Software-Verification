@@ -1,0 +1,12 @@
+Loop A(3) : 0 -> 4;
+Loop B(T): Start -> End;
+Loop E(100): Start + 10 -> 9;
+Loop I1(1) : 0 -> N / 2;
+Loop J(1) : 0 -> M;
+Loop K(1) : 0 -> L;
+Loop I2(1) : I1 -> N;
+
+Seq(Nest(I1, J, K), Nest(I2, J, K));
+
+Crr[I1][J] += Arr[I1][K] * Brr[K][J];
+Crr[I2][J] += Arr[I1][K] * Brr[K][J];
