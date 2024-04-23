@@ -1,0 +1,11 @@
+Loop I1(T1) : 0 -> M;
+Loop J1(T2) : 0 -> N;
+Loop K1(T3) : 0 -> L;
+
+Loop I2(1) : I1 -> I1 + T1;
+Loop J2(1) : J1 -> J1 + T2;
+Loop K2(1) : K1 -> K1 + T3;
+
+Nest(I1, J1, K1, I2, J2, K2);
+
+C[I2][J2] += A[I2][K2] * B[K2][J2];
