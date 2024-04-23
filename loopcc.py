@@ -1,5 +1,5 @@
 # write lark parser for loopcc
-import sys
+import sys, os
 from lark import Lark, Transformer, v_args
 from lark.exceptions import LarkError
 import subprocess
@@ -94,7 +94,7 @@ class LoopccTransformer(Transformer):
                 nest_start = 1
                 depth_stack.append(current_depth)
             elif nest_seq[idx] == "]":
-                self.loopDepth[current_loop] = current_depth 
+                self.loopDepth[current_loop] = current_depth
                 current_depth = depth_stack.pop()
                 nest_start = 0
             elif nest_seq[idx] == "(":
@@ -117,7 +117,7 @@ class LoopccTransformer(Transformer):
     def seq_nest(self, *args):
         return args[0]
 
-    def seq_operation(self, *args):	
+    def seq_operation(self, *args):
         return "(" + ",".join(args) + ")"
 
     def nest_operation(self, *args):
@@ -240,11 +240,11 @@ class BoogieCode:
         self.code += "var __Data1StartI: [int]int;\n"
         self.code += "var __Data2StartI: [int]int;\n"
         self.code += "var __Data1SizeI: [int]int;\n"
-        self.code += "var __Data2SizeI: [int]int;\n" 
+        self.code += "var __Data2SizeI: [int]int;\n"
         self.code += "var __Data1StartJ: [int]int;\n"
         self.code += "var __Data2StartJ: [int]int;\n"
         self.code += "var __Data1SizeJ: [int]int;\n"
-        self.code += "var __Data2SizeJ: [int]int;\n" 
+        self.code += "var __Data2SizeJ: [int]int;\n"
 
     def init_overlap_assignments(self):
         self.code += "__N1 := " + str(len(self.CIndex[0])) + ";\n"
@@ -378,7 +378,8 @@ if __name__ == "__main__":
 
     print("Running Boogie")
     try:
-        subprocess.run(["/home/shreya/software-verification/boogie-src/Source/BoogieDriver/bin/Debug/net8.0/BoogieDriver", "output.bpl"], check=True)
+        # subprocess.run(["/home/shreya/software-verification/boogie-src/Source/BoogieDriver/bin/Debug/net8.0/BoogieDriver", "output.bpl"], check=True)
+        subprocess.run([os.environ.get('BOOGIE'), "output.bpl"], check=True)
     except subprocess.CalledProcessError as e:
         print("Boogie failed")
         sys.exit(4)
